@@ -1,9 +1,22 @@
+import { useEffect, useState } from "react"
 import CreateDocumentCard from "../components/CreateDocumentCard"
 import DocumentCard from "../components/DocumentCard"
 import Footer from "../components/Footer"
 import SearchBar from "../components/SearchBar"
 
 const HomePage = () => {
+    const [documentData, setDocumentData] = useState([])
+
+    useEffect(() => {
+        if (window.localStorage.getItem("documentData")) {
+            setDocumentData(JSON.parse(window.localStorage.getItem("documentData")))
+        } else {
+            window.localStorage.setItem("documentData", JSON.stringify([
+                { name: "Class notes", "lastEdited": (new Date()).toLocaleString(), content: "yes today last name test fall pool you hand face yes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand fac"}
+            ]))
+        }
+    }, [])
+
     return (
         <div className="h-screen flex flex-col">
             <div className='flex flex-col p-12'>
@@ -16,7 +29,11 @@ const HomePage = () => {
 
                     <div className="flex gap-4">
                         <CreateDocumentCard />
-                        <DocumentCard name="Class notes" lastEdited={"12:17pm"} content={"yes today last name test fall pool you hand face yes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand fac"} />
+
+                        {documentData.map((document, index) => (
+                            <DocumentCard key={index} index={index} name={document.name} lastEdited={document.lastEdited} content={document.content} />
+                        ))}
+
                     </div>
 
                 </section>
