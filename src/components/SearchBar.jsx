@@ -1,4 +1,4 @@
-import { FaMicrophone, FaSearch, FaSearchPlus } from "react-icons/fa"
+import { FaMicrophone, FaSearch } from "react-icons/fa"
 import Button from "./Button"
 
 const SearchBar = () => {

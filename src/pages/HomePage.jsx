@@ -19,7 +19,7 @@ const HomePage = () => {
 
     return (
         <div className="h-screen flex flex-col">
-            <div className='flex flex-col p-12'>
+            <div className='flex flex-col p-12 animate-fade-in'>
                 <h1 className="text-7xl"><b>Voice-activated</b> Note taker</h1>
 
                 <hr className="mt-10 mb-5 border-neutral-600"></hr>

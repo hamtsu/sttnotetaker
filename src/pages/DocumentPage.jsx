@@ -21,13 +21,13 @@ const DocumentPage = () => {
 
     return (
         <div className='h-screen flex flex-col'>
-            <div className='flex flex-col p-5 m-5 h-full'>
+            <div className='flex flex-col p-5 m-5 h-full animate-fade-in'>
                 <div className='flex flex-col gap-3'>
                     <Button onClick={() => navigate("/")}><FaArrowLeftLong size={30} /></Button>
                     <h1>Now editing <b>{documentData.name}</b></h1>
                 </div>
                 <hr className='my-5 border-neutral-600' />
-                <div className='bg-neutral-700 rounded-md p-3 h-full'>
+                <div className='bg-neutral-700 rounded-md p-3 h-full animate-fade-in-late'>
                     <p>{documentData.content}</p>
                 </div>
             </div>
