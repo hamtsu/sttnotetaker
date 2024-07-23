@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import useModal from '../hooks/UseModal'
 import DocumentDeleteModal from './modals/DocumentDeleteModal'
 
-const DocumentCard = ({ index, name, lastEdited, content }) => {
+const DocumentCard = ({ index, name, lastEdited, content, searchHighlight }) => {
     const navigate = useNavigate()
 
     const { createModal } = useModal()
@@ -19,7 +19,7 @@ const DocumentCard = ({ index, name, lastEdited, content }) => {
             <div className='h-[200px] overflow-hidden p-2 text-sm opacity-80 select-none'>{content}</div>
             <div className='bg-neutral-900 flex gap-5 p-2 w-full'>
                 <div className='flex-col'>
-                    <h2 className='font-bold text-4xl'>{name}</h2>
+                    <h2 className='font-bold text-4xl'><span className='text-red-500'>{name.slice(0, 0 + searchHighlight.length)}</span>{name.slice(0 + searchHighlight.length)}</h2>
                     <p className='opacity-50'>last edited <b>{lastEdited}</b></p>
                 </div>
 

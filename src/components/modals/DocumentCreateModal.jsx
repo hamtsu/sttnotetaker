@@ -53,7 +53,7 @@ const DocumentCreateModal = ({ handleClose, closable }) => {
             <div className='flex flex-col gap-1 w-full p-1 py-4 px-3'>
                 <h3 className='font-semibold opacity-50 text-xl'>Name this document</h3>
                 <div className='flex gap-3'>
-                    <TextInput onChange={(e) => setTitle(e.target.value)} invalid={titleInvalid} />
+                    <TextInput onChangeEx={(e) => setTitle(e.target.value)} invalid={titleInvalid} setInvalid={setTitleInvalid} />
                     <StartSpeechRecognition />
                 </div>
             </div>
