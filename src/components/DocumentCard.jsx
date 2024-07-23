@@ -1,8 +1,17 @@
 import { FaTrashAlt } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import useModal from '../hooks/UseModal'
+import DocumentDeleteModal from './modals/DocumentDeleteModal'
 
 const DocumentCard = ({ index, name, lastEdited, content }) => {
     const navigate = useNavigate()
+
+    const { createModal } = useModal()
+
+    const onClick = (e) => {
+        e.stopPropagation()
+        createModal(<DocumentDeleteModal id={index} name={name} />, true)
+    }
 
     return (
         <div onClick={() => navigate(`/document/${index}`)}
@@ -14,7 +23,7 @@ const DocumentCard = ({ index, name, lastEdited, content }) => {
                     <p className='opacity-50'>last edited <b>{lastEdited}</b></p>
                 </div>
 
-                <div onClick={() => console.log("delete")} className='mt-auto ml-auto hover:opacity-100 opacity-50 hover:text-red-400 '><FaTrashAlt /></div>
+                <div onClick={onClick} className='mt-auto ml-auto hover:opacity-100 opacity-50 hover:text-red-400 '><FaTrashAlt size={20} /></div>
             </div>
         </div>
     )

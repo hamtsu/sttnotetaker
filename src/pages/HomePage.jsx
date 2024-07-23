@@ -12,7 +12,7 @@ const HomePage = () => {
             setDocumentData(JSON.parse(window.localStorage.getItem("documentData")))
         } else {
             window.localStorage.setItem("documentData", JSON.stringify([
-                { name: "Class notes", "lastEdited": (new Date()).toLocaleString(), content: "yes today last name test fall pool you hand face yes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand fac"}
+                { name: "Class notes", "lastEdited": (new Date()).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }), content: "yes today last name test fall pool you hand face yes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand fac"}
             ]))
         }
     }, [])
