@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Quickbar from "./Quickbar";
 
 const DocumentTextBox = ({ content, documentId }) => {
+    const [saving, setSaving] = useState("ready");
     const [currentContent, setCurrentContent] = useState(content);
     const currentContentRef = useRef(currentContent);
     currentContentRef.current = currentContent;
@@ -27,12 +28,14 @@ const DocumentTextBox = ({ content, documentId }) => {
         };
 
         const handleKeyDown = () => {
+            setSaving("saving")
             clearTimeout(timeout);
 
             // save after one second of inactivity
             timeout = setTimeout(() => {
                 console.log('Saved document changes');
                 save();
+                setSaving("saved")
             }, 1000);
         };
 
@@ -53,7 +56,7 @@ const DocumentTextBox = ({ content, documentId }) => {
                 spellCheck={true}
             />
             
-            <Quickbar />
+            <Quickbar saving={saving} />
         </div>
     );
 };
