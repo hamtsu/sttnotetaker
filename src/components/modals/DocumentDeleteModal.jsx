@@ -14,7 +14,7 @@ const DocumentDeleteModal = ({ handleClose, closable, id, name }) => {
         }
 
         handleClose?.()
-        window.location.href = "/sttnotetaker/#/"
+        window.location.href = "/sttnotetaker/"
     }
     useEffect(() => {
         if (closable) {
