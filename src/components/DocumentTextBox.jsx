@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Quickbar from "./Quickbar";
-import findDiff from "../util/findDiff";
 
 const DocumentTextBox = ({ content, documentId }) => {
     const [saving, setSaving] = useState("ready");
@@ -12,6 +11,34 @@ const DocumentTextBox = ({ content, documentId }) => {
     const onChange = (e) => {
         setCurrentContent(e.target.value);
     };
+    
+    const save = () => {
+        if (currentContentRef.current) {
+            const parsedData = JSON.parse(window.localStorage.getItem("documentData")) || {};
+            const documentData = parsedData[documentId] || { content: "", history: [] };
+
+            if (documentData.content !== currentContentRef.current) {
+                setHistory(prevHistory => {
+                    const newHistory = [...prevHistory, documentData.content];
+                    documentData.history = newHistory;
+                    documentData.content = currentContentRef.current;
+                    
+                    parsedData[documentId] = documentData;
+                    window.localStorage.setItem("documentData", JSON.stringify(parsedData));
+
+                    return newHistory;
+                });
+            }
+        }
+    };
+
+    const appendTranscript = (transcript) => {
+        setCurrentContent(prevContent => {
+            const newContent = prevContent + " " + transcript;
+            save(); 
+            return newContent;
+        });
+    }
 
     const undo = () => {
         const parsedData = JSON.parse(window.localStorage.getItem("documentData")) || {};
@@ -28,43 +55,8 @@ const DocumentTextBox = ({ content, documentId }) => {
         }
     }
 
-    const redo = () => {
-        const parsedData = JSON.parse(window.localStorage.getItem("documentData")) || {};
-        const documentData = parsedData[documentId] || { content: "", history: [] };
-
-        if (history.length > 0) {
-            const lastChange = history.pop();
-            documentData.content = lastChange;
-            parsedData[documentId] = documentData;
-
-            window.localStorage.setItem("documentData", JSON.stringify(parsedData));
-            setCurrentContent(lastChange);
-            setHistory([...history]);
-        }
-    }
-
     useEffect(() => {
         let timeout;
-
-        const save = () => {
-            if (currentContentRef.current) {
-                const parsedData = JSON.parse(window.localStorage.getItem("documentData")) || {};
-                const documentData = parsedData[documentId] || { content: "", history: [] };
-
-                if (documentData.content !== currentContentRef.current) {
-                    setHistory(prevHistory => {
-                        const newHistory = [...prevHistory, documentData.content];
-                        documentData.history = newHistory;
-                        documentData.content = currentContentRef.current;
-                        
-                        parsedData[documentId] = documentData;
-                        window.localStorage.setItem("documentData", JSON.stringify(parsedData));
-
-                        return newHistory;
-                    });
-                }
-            }
-        };
 
         const handleKeyDown = () => {
             setSaving("saving");
@@ -85,10 +77,11 @@ const DocumentTextBox = ({ content, documentId }) => {
             clearTimeout(timeout);
         };
     }, [documentId]);
-
+ 
     useEffect(() => {
         const parsedData = JSON.parse(window.localStorage.getItem("documentData")) || {};
         const documentData = parsedData[documentId] || { content: "", history: [] };
+
         setCurrentContent(documentData.content);
         setHistory(documentData.history || []);
     }, [documentId]);
@@ -102,7 +95,7 @@ const DocumentTextBox = ({ content, documentId }) => {
                 spellCheck={true}
             />
             
-            <Quickbar saving={saving} undo={undo} undoDisabled={currentContent === "" || saving == "saving"} />
+            <Quickbar saving={saving} undo={undo} undoDisabled={currentContent === "" || saving == "saving"} appendTranscript={appendTranscript} />
         </div>
     );
 };

@@ -2,14 +2,12 @@ import { FaMicrophone } from "react-icons/fa6";
 import Button from "./Button";
 import useModal from "../hooks/UseModal";
 import SpeechModal from "./modals/SpeechModal";
-import { useState } from "react";
 
-const StartSpeechRecognition = () => {
+const StartSpeechRecognition = ({ appendTranscript }) => {
   const { createModal } = useModal()
-  const [result, setResult] = useState("")
 
   const onClick = () => {
-    createModal(<SpeechModal />, true, setResult)
+    createModal(<SpeechModal />, true, { appendTranscript })
   }
 
   return (

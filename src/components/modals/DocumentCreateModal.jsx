@@ -10,9 +10,7 @@ const DocumentCreateModal = ({ handleClose, closable }) => {
     const inputRef = useRef(null);
 
     const submit = (title) => {
-        console.log(titleInvalid)
         if (title.length > 1 && title.length < 25) {
-            console.log(titleInvalid)
             const storedDocumentList = localStorage.getItem("documentData");
             let id;
 
@@ -60,6 +58,10 @@ const DocumentCreateModal = ({ handleClose, closable }) => {
         };
     }, [closable, handleClose, title]);
 
+    const appendTranscript = (transcript) => {
+        submit(transcript)
+    }
+
     return (
         <div className='min-w-[400px] md:min-w-[700px]'>
             <ModalTitle closable={closable} handleClose={handleClose}>Create a new document</ModalTitle>
@@ -73,7 +75,7 @@ const DocumentCreateModal = ({ handleClose, closable }) => {
                         invalid={titleInvalid}
                         setInvalid={setTitleInvalid}
                     />
-                    <StartSpeechRecognition />
+                    <StartSpeechRecognition appendTranscript={appendTranscript} />
                 </div>
             </div>
 
