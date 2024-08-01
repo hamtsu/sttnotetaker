@@ -8,12 +8,12 @@ import ErrorPage from './pages/ErrorPage';
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: "sttnotetaker/",
     element: <HomePage />,
     errorElement: <ErrorPage />,
   },
   { 
-    path: "document/:documentId",
+    path: "sttnotetaker/document/:documentId",
     element: <DocumentPage />,
    },
 ]);
