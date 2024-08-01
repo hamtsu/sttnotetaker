@@ -27,7 +27,7 @@ const DocumentCreateModal = ({ handleClose, closable }) => {
             }
 
             handleClose();
-            window.location.href = "/document/" + id;
+            window.location.href = "/sttnotetaker/#/document/" + id;
         } else {
             console.log(title)
             setTitleInvalid(true);
