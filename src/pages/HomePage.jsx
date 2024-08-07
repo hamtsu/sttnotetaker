@@ -16,7 +16,8 @@ const HomePage = () => {
             setDocumentData(sortedData)
         } else {
             window.localStorage.setItem("documentData", JSON.stringify([
-                { name: "Class notes", "lastEdited": (new Date()).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }), content: "yes today last name test fall pool you hand face yes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand faceyes today last name test fall pool you hand fac" }
+                { name: "Class notes", "lastEdited": (new Date()).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }), 
+                content: "This is an example document for the STT Note taker. Select the microphone icon on the right to start speech recognition!" }
             ]))
         }
     }, [])
